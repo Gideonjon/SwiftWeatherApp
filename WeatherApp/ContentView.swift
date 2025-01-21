@@ -9,7 +9,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [Color.blue,Color.white]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            LinearGradient(gradient: Gradient(colors: [Color.blue,Color("LightBlue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(.all)
             VStack{
                 Text("Cupertino, CA")
@@ -17,15 +17,47 @@ struct ContentView: View {
                     .foregroundColor(.white)
                     .padding()
                 
-                VStack{
+                VStack(spacing: 10){
                     Image(systemName: "cloud.sun.fill")
                         .renderingMode(.original)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 180,height: 180)
                     
-                }
+                    Text("76°")
+                        .font(.system(size: 52,weight: .medium,design: .default))
+                        .foregroundColor(.white)
                 
+                    }
+                .padding(.bottom, 40)
+                
+                HStack(spacing: 20 ){
+                    WeatherDayView(dayofweek: "TUE", imageName: "cloud.sun.fill", temperature: 75)
+                    
+                    WeatherDayView(dayofweek: "WED", imageName: "sun.max.fill", temperature: 88)
+                    
+                    WeatherDayView(dayofweek: "THUR", imageName: "wind.snow", temperature: 55)
+                    
+                    WeatherDayView(dayofweek: "FRI", imageName: "sunset.fill", temperature: 60)
+                    
+                    WeatherDayView(dayofweek: "SAT", imageName: "snow", temperature: 25)
+                    
+                    
+                }
+              
+               
+                
+                Spacer()
+                
+                Button{
+                    print("tapped")
+                }label: {
+                    Text("Change Day Time").textCase(.none)
+                        .frame(width: 200, height: 50)
+                        .background(.white)
+                        .font(.system(size: 16,weight: .bold,design: .default))
+                    
+                }
                 Spacer()
             }
           
@@ -36,4 +68,34 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct WeatherDayView: View {
+    var dayofweek : String
+    var  imageName : String
+    var temperature : Int
+    
+    
+    var body: some View {
+        HStack{
+            VStack{
+                Text(dayofweek)
+                    .font(.system(size: 16,weight: .medium,design: .default))
+                    .foregroundColor(.white )
+                
+                
+                Image(systemName: imageName)
+                    .renderingMode(.original)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 40,height: 40)
+                
+                Text("\(temperature)°")
+                    .font(.system(size: 28,weight: .medium,design: .default))
+                    .foregroundColor(.white)
+            }
+            
+            
+        }
+    }
 }
